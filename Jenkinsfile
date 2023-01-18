@@ -1,16 +1,27 @@
-pipeline {
-    agent {
-        docker {
-            image 'node:6-alpine'
-            args '-p 3000:3000'
-        }
+peline {
+  agent any
+    
+  tools {nodejs "NodeJS"}
+    
+  stages {
+        
+    stage('Git') {
+      steps {
+        git 'https://github.com/Yash6601-bhatt/simple-node-js-react-npm-app.git'
+      }
     }
-    stages {
-        stage('Build') {
-            steps {
-                sh 'npm install'
-            }
-        }
      
+    stage('Build') {
+      steps {
+        sh 'npm install'
+      }
+    }  
+    
+            
+    stage('Test') {
+      steps {
+        sh 'node test'
+      }
     }
+  }
 }
